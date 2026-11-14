@@ -37,4 +37,4 @@ The authors' `machinelearning_models.ipynb` reproduces these values, and my reim
 - **By 18 December:** noise results at all 4 SNR levels compared with the clean reproduction, plus the IEEE paper.
 - **Fallback:** use a smaller subset of training subjects (same test set) and report it as a partial reproduction.
 
-*LLM use: Claude helped with reading the paper and code, and with drafting. The research question, experiments and analysis are my own.*
+*LLM use: Anara helped with reading the paper and claude for code, and with drafting. The research question, experiments and analysis are my own.*
