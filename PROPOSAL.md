@@ -20,13 +20,13 @@ M. A. Alqarni, H. Masood, A. J. Qureshi, M. Alvi, H. Arbab, H. A. Khan, A. M. Ka
 | Random Forest (main target) | 0.675 | 0.678 | 0.667 | **0.732** |
 | Decision Tree (secondary) | 0.668 | 0.670 | 0.663 | 0.720 |
 
-**Metrics:** test accuracy and macro-averaged precision, recall and F1, as reported in the paper. **Protocol check:** the saved output of the authors' `machinelearning_models.ipynb` gives 0.67592 / 0.67880 / 0.66778 / 0.73244, which matches Table 3 (the paper truncates to 3 decimals). That notebook's protocol is the one I will reimplement: 2–45 Hz bandpass (the paper states 1–45 Hz), ICA muscle-artifact removal, CWT scales 1–23 with 5 statistics per scale, StandardScaler, PCA at 99% variance, and RF with 100 trees and depth 7.
+**Metrics:** test accuracy and macro-averaged precision, recall and F1, as reported in the paper. **Protocol check:** the saved output of the authors' `machinelearning_models.ipynb` gives 0.67592 / 0.67880 / 0.66778 / 0.73244, which matches Table 3 (the paper truncates to 3 decimals). That notebook's protocol is my **primary run**: 2–45 Hz bandpass, ICA muscle-artifact removal, CWT scales 1–23 with 5 statistics per scale, StandardScaler, PCA at 99% variance, and RF with 100 trees and depth 7. The paper's stated 1–45 Hz filter is run as a sensitivity check. The paper's values are reproduction **targets**: I will report my own clean numbers and explain any difference.
 
 ## 3. Research question
 
-> How much do the accuracy (0.732) and macro F1 (0.667) of the Random Forest (Mexh) model in Table 3 drop when white Gaussian noise at SNRs of 20, 10, 5 and 0 dB is added to the test EEG signals?
+> How much do the accuracy and macro F1 of my reproduced Random Forest (Mexh) model from Table 3 (paper: 0.732 and 0.667) drop, relative to my own clean test-set result, when white Gaussian noise at SNRs of 20, 10, 5 and 0 dB is added to the test EEG signals?
 
-**Noise procedure:** zero-mean white Gaussian noise is added to the raw signal of each channel of each test recording, with variance set so that SNR = 10·log10(P_signal / P_noise) matches the target, where P_signal is that channel's mean power. Noise is added before filtering and feature extraction. Each SNR level is repeated with 3 random seeds and reported as mean ± std. The model is trained on clean data only and evaluated on the same held-out test subjects, with the clean baseline reported alongside, so noise is the only change.
+**Noise procedure:** zero-mean white Gaussian noise is added to the raw signal of each channel of each test recording, with variance set so that SNR = 10·log10(P_signal / P_noise) matches the target, where P_signal is that channel's mean power. Noise is added before the same filtering and feature-extraction steps used for clean data. Each SNR level is repeated with 3 fixed random seeds (0, 1, 2), so every noise realisation can be regenerated exactly, and results are reported as mean ± std. The model is trained on clean data only and evaluated on the same held-out test subjects, with the clean baseline reported alongside, so noise is the only change.
 
 ## 4. Data and compute
 
@@ -37,7 +37,7 @@ M. A. Alqarni, H. Masood, A. J. Qureshi, M. Alvi, H. Arbab, H. A. Khan, A. M. Ka
 
 ## 5. Plan
 
-- **By 4 December:** data loading and label parsing verified; 10-recording pilot run (runtime and memory measured); full pipeline written and tested; Table 3 Random Forest and Decision Tree (Mexh) results reproduced, or the difference explained (for example, the paper reports a 1–45 Hz filter while the code uses 2–45 Hz).
+- **By 4 December:** data loading and label parsing verified; 10-recording pilot run (runtime and memory measured); full pipeline written and tested; Table 3 Random Forest and Decision Tree (Mexh) results reproduced (primary 2–45 Hz run plus the 1–45 Hz check), or the difference explained.
 - **By 18 December:** noise extension run at all 4 SNR levels; accuracy, macro F1, per-class F1 and confusion matrices compared with the clean reproduction; IEEE paper (4–6 pages) and README finished with run instructions.
 - **Fallback:** if the full reproduction is too slow or fails, train on a smaller subset of training subjects with the full subject-wise test set, use the Decision Tree (Mexh) only, and report it clearly as a partial reproduction. The noise extension applies unchanged.
 
