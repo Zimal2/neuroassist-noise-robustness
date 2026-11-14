@@ -1,6 +1,6 @@
 # Track A Proposal: Noise Robustness of NeuroAssist EEG Event Localisation
 
-**Student:** Zimal Fatima, [Roll No.] · **Repository:** <https://github.com/Zimal2/neuroassist-noise-robustness> · **Track:** A (Research: reproduce and extend)
+**Student:** Zimal Fatima, Roll No. 536854, MS AI, SEECS (NUST) · **Repository:** <https://github.com/Zimal2/neuroassist-noise-robustness> · **Track:** A (Research: reproduce and extend)
 
 ## 1. Benchmark paper
 
